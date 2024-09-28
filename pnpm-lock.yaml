@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      advanced-type-utilities:
+        specifier: ^0.6.0
+        version: 0.6.0
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.2
@@ -353,6 +357,9 @@ packages:
 
   '@vitest/utils@2.1.1':
     resolution: {integrity: sha512-Y6Q9TsI+qJ2CC0ZKj6VBb+T8UPz593N113nnUykqwANqhgf3QkZeHFlusgKLTqrnVHbj/XDKZcDHol+dxVT+rQ==}
+
+  advanced-type-utilities@0.6.0:
+    resolution: {integrity: sha512-RDAaSR1SerWmRshAfEFK4n9nHM99m+7IbckfP+eBgOYE1lVacdcKWoTzed12Ry/8K7P3FgzUISdM6mh0mw9tLw==}
 
   ansi-styles@6.2.1:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
@@ -922,6 +929,8 @@ snapshots:
       '@vitest/pretty-format': 2.1.1
       loupe: 3.1.1
       tinyrainbow: 1.2.0
+
+  advanced-type-utilities@0.6.0: {}
 
   ansi-styles@6.2.1: {}
 
