@@ -13,19 +13,25 @@ export function declareLocales<const T extends LocaleDeclaration>(localeDeclarat
     localeDeclaration.required[0]
 
   return {
-    setLocale: (locale: LiteralAutoComplete<T['required'][number] | OptionalLocalesOf<T>[number]>) => {
+    /**
+     * Set current locale.
+     * @example
+     * setLocale('en')
+     * @example
+     * setLocale('en-US')
+     */
+    setLocale(locale: LiteralAutoComplete<T['required'][number] | OptionalLocalesOf<T>[number]>) {
       currentLocale = locale
     },
-    createI18nObject: <
+
+    createI18nObject<
       const Resources extends Record<
         string,
         MergeIntersection<
           Record<T['required'][number], unknown> & Partial<Record<OptionalLocalesOf<T>[number], unknown>>
         >
       >,
-    >(
-      resources: Resources,
-    ) => {
+    >(resources: Resources) {
       const result = {} as { [K in keyof Resources]: ValueOf<Resources[K]> }
       for (const key of Object.getOwnPropertyNames(resources)) {
         Object.defineProperty(result, key, {
