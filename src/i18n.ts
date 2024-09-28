@@ -16,7 +16,7 @@ export function declareLocales<const T extends LocaleDeclaration>(localeDeclarat
     setLocale: (locale: Locale) => {
       currentLocale = locale
     },
-    createI18nResource: <
+    createI18nObject: <
       const Resources extends Record<
         keyof any,
         MergeIntersection<
