@@ -9,16 +9,16 @@ type LocaleDeclaration = {
 type OptionalLocalesOf<T extends LocaleDeclaration> = T extends { optional: readonly string[] } ? T['optional'] : []
 
 export function declareLocales<const T extends LocaleDeclaration>(localeDeclaration: T) {
-  type Locale = LiteralAutoComplete<T['required'][number] | OptionalLocalesOf<T>[number]>
-  let currentLocale: Locale = localeDeclaration.required[0]
+  let currentLocale: LiteralAutoComplete<T['required'][number] | OptionalLocalesOf<T>[number]> =
+    localeDeclaration.required[0]
 
   return {
-    setLocale: (locale: Locale) => {
+    setLocale: (locale: LiteralAutoComplete<T['required'][number] | OptionalLocalesOf<T>[number]>) => {
       currentLocale = locale
     },
     createI18nObject: <
       const Resources extends Record<
-        keyof any,
+        string,
         MergeIntersection<
           Record<T['required'][number], unknown> & Partial<Record<OptionalLocalesOf<T>[number], unknown>>
         >
@@ -27,10 +27,10 @@ export function declareLocales<const T extends LocaleDeclaration>(localeDeclarat
       resources: Resources,
     ) => {
       const result = {} as { [K in keyof Resources]: ValueOf<Resources[K]> }
-      for (const ownKey of Reflect.ownKeys(resources)) {
-        Object.defineProperty(result, ownKey, {
+      for (const key of Object.getOwnPropertyNames(resources)) {
+        Object.defineProperty(result, key, {
           get: () => {
-            return (resources[ownKey] as any)[currentLocale]
+            return (resources[key] as any)[currentLocale]
           },
         })
       }
